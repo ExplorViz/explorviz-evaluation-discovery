@@ -1,0 +1,33 @@
+FROM tomcat:8.5-alpine
+MAINTAINER Alexander-Krause <akr@informatik.uni-kiel.de>
+
+# docker build -t alexanderkrause/explorviz -f Dockerfile_ExplorViz .
+# docker run -t -d --name explorviz -p 8090:8080 -p 10133:10133 alexanderkrause/explorviz
+# docker exec explorviz /bin/sh
+# docker run -it --name explorviz alexanderkrause/target-system /bin/sh
+
+ENV TOMCAT_TGZ_URL=http://ftp.halifax.rwth-aachen.de/apache/tomcat/tomcat-8/v8.5.28/bin/apache-tomcat-8.5.28.tar.gz
+ENV FRONTEND_TGZ_URL=https://github.com/ExplorViz/explorviz-frontend-extension-discovery/releases/download/0.1/explorviz-frontend.tar.gz
+ENV BACKEND_WAR_URL=https://github.com/ExplorViz/explorviz-backend-extension-discovery/releases/download/0.1/explorviz-backend.war
+
+RUN apk --no-cache add wget dos2unix vim less
+
+WORKDIR webapps
+
+RUN wget "$BACKEND_WAR_URL" \
+  && mkdir explorviz-backend \
+  && unzip explorviz-backend.war -d explorviz-backend/ \
+  && rm explorviz-backend.war \
+  && wget "$FRONTEND_TGZ_URL" \
+  && mkdir explorviz-frontend \
+  && tar -xzf explorviz-frontend.tar.gz -C explorviz-frontend \
+  && rm explorviz-frontend.tar.gz
+
+COPY backend/explorviz.properties explorviz-backend/WEB-INF/classes/explorviz.properties
+COPY tomcat/server-backend.xml /usr/local/tomcat/conf/server.xml
+
+RUN dos2unix explorviz-backend/WEB-INF/classes/explorviz.properties \
+  && dos2unix /usr/local/tomcat/conf/server.xml
+
+EXPOSE 8080
+EXPOSE 10133
