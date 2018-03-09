@@ -42,6 +42,8 @@ COPY tomcat/server-agent.xml /explorviz-discovery-agent/conf/server.xml
 COPY tomcat/server-tomcat.xml /apache-tomcat/conf/server.xml
 COPY agent.sh /agent.sh
 
+RUN chmod +x /agent.sh
+
 RUN dos2unix /explorviz-discovery-agent/webapps/explorviz-discovery-agent/WEB-INF/classes/explorviz.properties \
   && dos2unix /explorviz-discovery-agent/conf/server.xml \
   && dos2unix /apache-tomcat/conf/server.xml \
