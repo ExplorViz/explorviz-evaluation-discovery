@@ -8,7 +8,7 @@ MAINTAINER Alexander-Krause <akr@informatik.uni-kiel.de>
 # docker exec target1 /bin/sh
 # docker run -it --name target1 alexanderkrause/explorviz-discovery-agent /bin/sh
 
-ENV TOMCAT_TGZ_URL=http://ftp.halifax.rwth-aachen.de/apache/tomcat/tomcat-8/v8.5.28/bin/apache-tomcat-8.5.28.tar.gz
+ENV TOMCAT_TGZ_URL=http://ftp.halifax.rwth-aachen.de/apache/tomcat/tomcat-8/v8.5.29/bin/apache-tomcat-8.5.29.tar.gz
 ENV AGENT_TGZ_URL=https://github.com/ExplorViz/explorviz-discovery-agent/releases/download/0.1/explorviz-discovery-agent.war
 ENV JPETSTORE_WAR_URL=https://github.com/ExplorViz/explorviz-discovery-agent/releases/download/0.1/jpetstore.war
 ENV SAMPLE_APP_TGZ_URL=https://github.com/ExplorViz/explorviz-discovery-agent/releases/download/0.1/sampleApplication.tar.gz
