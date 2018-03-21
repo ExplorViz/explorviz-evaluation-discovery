@@ -6,7 +6,7 @@ MAINTAINER Alexander-Krause <akr@informatik.uni-kiel.de>
 # docker exec explorviz /bin/sh
 # docker run -it --name explorviz alexanderkrause/target-system /bin/sh
 
-ENV TOMCAT_TGZ_URL=http://ftp.halifax.rwth-aachen.de/apache/tomcat/tomcat-8/v8.5.28/bin/apache-tomcat-8.5.28.tar.gz
+ENV TOMCAT_TGZ_URL=http://ftp.halifax.rwth-aachen.de/apache/tomcat/tomcat-8/v8.5.29/bin/apache-tomcat-8.5.29.tar.gz
 ENV FRONTEND_TGZ_URL=https://github.com/ExplorViz/explorviz-frontend-extension-discovery/releases/download/0.1/explorviz-frontend.tar.gz
 ENV BACKEND_WAR_URL=https://github.com/ExplorViz/explorviz-backend-extension-discovery/releases/download/0.1/explorviz-backend.war
 
