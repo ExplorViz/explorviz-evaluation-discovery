@@ -3,20 +3,23 @@ MAINTAINER Alexander-Krause <akr@informatik.uni-kiel.de>
 
 # Debian Stretch
 
-# docker build -t alexanderkrause/explorviz-discovery-agent -f Dockerfile_Agent .
-# docker run -t -d --name target1 -p 8088:8080 -p 8089:8081 alexanderkrause/explorviz-discovery-agent
-# docker exec target1 /bin/sh
-# docker run -it --name target1 alexanderkrause/explorviz-discovery-agent /bin/sh
+# docker build -t explorviz/explorviz-discovery-agent -f Dockerfile_Agent .
+# docker run -t -d --name target1 -p 8088:8080 -p 8089:8081 explorviz/explorviz-discovery-agent
 
-ENV TOMCAT_TGZ_URL=http://ftp.halifax.rwth-aachen.de/apache/tomcat/tomcat-8/v8.5.29/bin/apache-tomcat-8.5.29.tar.gz
+# DEBUG: 
+# docker exec -it target1 /bin/sh
+# less -f explorviz-discovery-agent/logs/catalina.out
+
+
 ENV AGENT_TGZ_URL=https://github.com/ExplorViz/explorviz-discovery-agent/releases/download/0.1/explorviz-discovery-agent.war
 ENV JPETSTORE_WAR_URL=https://github.com/ExplorViz/explorviz-discovery-agent/releases/download/0.1/jpetstore.war
 ENV SAMPLE_APP_TGZ_URL=https://github.com/ExplorViz/explorviz-discovery-agent/releases/download/0.1/sampleApplication.tar.gz
 
 RUN apt-get update && apt-get install -y wget dos2unix vim less && rm -rf /var/lib/apt/lists/*
 
-RUN wget -O tomcat.tar.gz "$TOMCAT_TGZ_URL" \
-  && mkdir explorviz-discovery-agent \
+COPY tomcat/apache-tomcat-8.5.34.tar.gz /tomcat.tar.gz
+
+RUN mkdir explorviz-discovery-agent \
   && mkdir apache-tomcat \
   && tar -xzf tomcat.tar.gz -C apache-tomcat --strip-components=1 \
   && tar -xzf tomcat.tar.gz -C explorviz-discovery-agent --strip-components=1 \
