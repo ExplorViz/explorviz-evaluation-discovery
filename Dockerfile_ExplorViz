@@ -7,18 +7,16 @@ MAINTAINER Alexander-Krause <akr@informatik.uni-kiel.de>
 # DEBUG: 
 # docker exec -it explorviz /bin/sh
 
-ENV FRONTEND_TGZ_URL=https://github.com/ExplorViz/explorviz-frontend-extension-discovery/releases/download/0.1/explorviz-frontend.tar.gz
-ENV BACKEND_WAR_URL=https://github.com/ExplorViz/explorviz-backend-extension-discovery/releases/download/0.1/explorviz-backend.war
-
 RUN apk --no-cache add wget dos2unix vim less
 
 WORKDIR webapps
 
-RUN wget "$BACKEND_WAR_URL" \
-  && mkdir explorviz-backend \
+COPY software/explorviz-frontend.tar.gz explorviz-frontend.tar.gz
+COPY software/explorviz-backend.war explorviz-backend.war
+
+RUN mkdir explorviz-backend \
   && unzip explorviz-backend.war -d explorviz-backend/ \
   && rm explorviz-backend.war \
-  && wget "$FRONTEND_TGZ_URL" \
   && mkdir explorviz-frontend \
   && tar -xzf explorviz-frontend.tar.gz -C explorviz-frontend \
   && rm explorviz-frontend.tar.gz
